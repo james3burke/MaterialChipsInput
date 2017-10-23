@@ -66,6 +66,14 @@ public class ContactListActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence text) {
                 Log.e(TAG, "text changed: " + text.toString());
             }
+
+            @Override
+            public boolean onTextEntered(CharSequence text) {
+                Log.e(TAG, "text entered: " + text.toString());
+                ContactChip contactChip = new ContactChip(null, null, text.toString(), null);
+                mChipsInput.addChip(contactChip);
+                return true;
+            }
         });
 
         // show selected chips
@@ -121,6 +129,10 @@ public class ContactListActivity extends AppCompatActivity {
                 mContactList.add(contactChip);
             }
             phones.close();
+        }
+        if (mContactList.isEmpty()) {
+            mContactList.add(new ContactChip(null, null, "John Doe", "john@world.com"));
+            mContactList.add(new ContactChip(null, null, "Fred Bloggs", "fred@world.com"));
         }
 
         // pass contact list to chips input

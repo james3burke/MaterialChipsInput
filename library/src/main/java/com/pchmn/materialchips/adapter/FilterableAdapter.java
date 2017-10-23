@@ -101,6 +101,11 @@ public class FilterableAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             public void onTextChanged(CharSequence text) {
                 mRecyclerView.scrollToPosition(0);
             }
+
+            @Override
+            public boolean onTextEntered(CharSequence text) {
+                return false;
+            }
         });
     }
 

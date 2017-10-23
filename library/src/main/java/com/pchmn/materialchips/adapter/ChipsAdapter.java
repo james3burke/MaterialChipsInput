@@ -142,6 +142,11 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     // remove last chip
                     if(mChipList.size() > 0 && mEditText.getText().toString().length() == 0)
                         removeChip(mChipList.size() - 1);
+                } else if ((event.getAction() == KeyEvent.ACTION_DOWN)
+                        && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
+                        && (mEditText.getText().toString().length() > 0)) {
+                    Log.d(TAG, "Potential new chip " + mEditText.getText().toString());
+                    textEntered(mEditText.getText());
                 }
                 return false;
             }
@@ -273,6 +278,12 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void setFilterableListView(FilterableListView filterableListView) {
         if(mEditText != null)
             mEditText.setFilterableListView(filterableListView);
+    }
+
+    public void textEntered(CharSequence enteredText) {
+        if (mChipsInput.onTextEntered(enteredText)) {
+            mEditText.setText(null);
+        }
     }
 
     public void addChip(ChipInterface chip) {
